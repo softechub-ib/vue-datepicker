@@ -3,7 +3,7 @@ import { CalendarStylesProp, InputStylesProp } from '@/types/index';
 import VueDatePicker from '@/components/VueDatePicker.vue';
 import { ref } from 'vue';
 
-const date = ref('2024-12-11');
+const date = ref(['2024-12-15']);
 const locale = ref<'en' | 'sr'>('en');
 const dark = ref(false);
 const inputStyles = ref<InputStylesProp>({
@@ -31,23 +31,28 @@ const calendarStyles = ref<CalendarStylesProp>({
       // marginBottom: '48px',
     },
   },
+  tableBodyItem: {
+    current: {
+      // borderWidth: '6px',
+    },
+  },
 });
 
 function change() {
   dark.value = !dark.value;
   locale.value = 'sr';
-  calendarStyles.value.container &&
-    (calendarStyles.value.container.width = '272px');
 }
 </script>
 
 <template>
   <button @click="change">Click me</button>
+  <p>Date value: {{ date }}</p>
   <VueDatePicker
     v-model="date"
+    range
     :locale="locale"
     :start-week-on-monday="locale === 'sr'"
-    :min="new Date('2024-12-05')"
+    :min="new Date('2024-11-05')"
     :max="null"
     :dark="dark"
     :input-styles="inputStyles"

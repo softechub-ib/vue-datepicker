@@ -14,7 +14,8 @@ import { extractDateComponent, formatDate } from '@/helpers/index';
 import dayjs from '@/dayjs-with-locales';
 
 type VueCalendarProps = {
-  value: string;
+  value: string | string[];
+  range: boolean;
   startWeekOnMonday: boolean;
   min: DateString | undefined;
   max: DateString | undefined;
@@ -59,15 +60,20 @@ const table = ref<HTMLTableElement>();
 const tableCell = ref<HTMLTableCellElement[]>([]);
 const show = ref<Show>('days');
 const year = ref(
-  props.value
-    ? extractDateComponent(props.value, 'year')
-    : formatDate(new Date().toDateString(), 'YYYY'),
+  props.range && (props.value[1] || props.value[0])
+    ? extractDateComponent(props.value[1] || props.value[0], 'year')
+    : typeof props.value === 'string'
+      ? extractDateComponent(props.value, 'year')
+      : formatDate(new Date().toDateString(), 'YYYY'),
 );
 const month = ref(
-  props.value
-    ? extractDateComponent(props.value, 'month')
-    : formatDate(new Date().toDateString(), 'MM'),
+  props.range && (props.value[1] || props.value[0])
+    ? extractDateComponent(props.value[1] || props.value[0], 'month')
+    : typeof props.value === 'string'
+      ? extractDateComponent(props.value, 'month')
+      : formatDate(new Date().toDateString(), 'MM'),
 );
+const hoveredDate = ref<DateString>();
 
 const calendarValue = computed<CalendarValue>(
   () => `${year.value}-${month.value}`,
@@ -149,10 +155,7 @@ function getFormattedWeekday(value: number) {
     : formatWeekday(value - 1);
 }
 
-function dateDifference(
-  date: DateString | CalendarValue,
-  comparedDate: DateString | CalendarValue,
-) {
+function dateDifference(date: string, comparedDate: string) {
   return dayjs(date).diff(comparedDate);
 }
 
@@ -174,6 +177,12 @@ function isDayRestricted(date: DateString) {
     (props.min && dateDifference(date, props.min) < 0) ||
     (props.max && dateDifference(props.max, date) < 0)
   );
+}
+
+function isDaySelected(date: DateString) {
+  return props.range
+    ? [props.value[0], props.value[1]].includes(date)
+    : date === props.value;
 }
 
 function setShow(value: Show) {
@@ -215,6 +224,25 @@ function scrollToYear() {
     'px';
 
   tRow.scrollIntoView({ block: 'center' });
+}
+
+function getHoveredItems(date: DateString) {
+  if (!props.range || !props.value[0]) return;
+
+  if (props.value[1]) {
+    return (
+      dateDifference(date, props.value[0]) > 0 &&
+      dateDifference(date, props.value[1]) < 0
+    );
+  }
+
+  return (
+    hoveredDate.value &&
+    ((dateDifference(date, props.value[0]) > 0 &&
+      dateDifference(date, hoveredDate.value) <= 0) ||
+      (dateDifference(props.value[0], date) > 0 &&
+        dateDifference(hoveredDate.value, date) <= 0))
+  );
 }
 
 async function clickYearHeader() {
@@ -349,7 +377,11 @@ function clickDay(date: DateString) {
           </th>
         </tr>
       </thead>
-      <tbody class="sib-calendar__table__body" role="rowgroup">
+      <tbody
+        class="sib-calendar__table__body"
+        role="rowgroup"
+        @mouseleave="hoveredDate = undefined"
+      >
         <tr
           v-for="(row, index) in calendarDays"
           :key="`row-${index}`"
@@ -367,10 +399,15 @@ function clickDay(date: DateString) {
               'sib-calendar__table__body__item--restricted': isDayRestricted(
                 item.date,
               ),
-              'sib-calendar__table__body__item--selected':
-                item.date === props.value,
+              'sib-calendar__table__body__item--selected': isDaySelected(
+                item.date,
+              ),
+              'sib-calendar__table__body__item--hovered': getHoveredItems(
+                item.date,
+              ),
             }"
             role="gridcell"
+            @mouseenter="hoveredDate = item.date"
           >
             <button
               :disabled="isDayRestricted(item.date)"
@@ -608,7 +645,8 @@ function clickDay(date: DateString) {
           cursor: pointer;
         }
 
-        &:hover {
+        &:hover,
+        &--hovered {
           background-color: v-bind('styles.tableBodyItem.hoverBackgroundColor');
         }
 
@@ -635,9 +673,10 @@ function clickDay(date: DateString) {
         }
 
         &--current {
-          background-color: v-bind(
-            'styles.tableBodyItem.current.backgroundColor'
-          );
+          button {
+            border: v-bind('styles.tableBodyItem.current.border');
+            border-radius: v-bind('styles.tableBodyItem.borderRadius');
+          }
         }
 
         &--restricted {

@@ -132,7 +132,7 @@ export type CalendarStylesProp = {
       opacity?: `${number}`;
     };
     current?: {
-      backgroundColor?: string;
+      border?: string;
     };
     restricted?: {
       color?: string;
@@ -146,6 +146,8 @@ export type CalendarStylesProp = {
 };
 
 export type CalendarStylesGenerator = (dark: boolean) => CalendarStylesProp;
+
+export type DateValue = string | number | Date | null | undefined;
 
 type Day = `${number}${number}`;
 

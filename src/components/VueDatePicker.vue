@@ -2,11 +2,12 @@
 import {
   CalendarStylesProp,
   DateString,
+  DateValue,
   DayjsLocale,
   InputStylesProp,
   Size,
 } from '@/types/index';
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import {
   defaultCalendarStyles,
   defaultInputStyles,
@@ -19,7 +20,8 @@ import deepMerge from 'lodash.merge';
 import { useClickOutside } from '@/composables/clickOutside';
 
 type VueDatePickerProps = {
-  modelValue: string | number | Date | null | undefined;
+  modelValue: DateValue | DateValue[];
+  range?: boolean;
   size?: Size;
   name?: string;
   placeholder?: string;
@@ -29,13 +31,14 @@ type VueDatePickerProps = {
   disabled?: boolean;
   error?: boolean;
   dark?: boolean;
-  min?: string | number | Date | null | undefined;
-  max?: string | number | Date | null | undefined;
+  min?: DateValue;
+  max?: DateValue;
   inputStyles?: InputStylesProp;
   calendarStyles?: CalendarStylesProp;
 };
 
 const props = withDefaults(defineProps<VueDatePickerProps>(), {
+  range: false,
   size: 'medium',
   name: 'datepicker-input',
   placeholder: undefined,
@@ -52,7 +55,7 @@ const props = withDefaults(defineProps<VueDatePickerProps>(), {
 });
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void;
+  (e: 'update:modelValue', value: string | string[]): void;
 }>();
 
 const container = ref<HTMLDivElement>();
@@ -60,10 +63,29 @@ const calendar = ref<HTMLDivElement>();
 const open = ref<boolean>(false);
 
 const inputValue = computed({
-  get: () =>
-    props.modelValue ? formatDate(props.modelValue, 'YYYY-MM-DD') : '',
+  get: () => {
+    return props.range
+      ? Array.isArray(props.modelValue)
+        ? props.modelValue.map((date) =>
+            date ? formatDate(date, 'YYYY-MM-DD') : '',
+          )
+        : ['', '']
+      : props.modelValue
+        ? formatDate(props.modelValue as string | number | Date, 'YYYY-MM-DD')
+        : '';
+  },
   set: (value) => emit('update:modelValue', value),
 });
+
+const inputDisplay = computed(() => {
+  return isRange.value && inputValue.value[0]
+    ? `${formatDate(inputValue.value[0], 'DD. MMM YYYY')} - ${inputValue.value[1] ? formatDate(inputValue.value[1], 'DD. MMM YYYY') : ''}`
+    : !isRange.value && typeof inputValue.value === 'string'
+      ? formatDate(inputValue.value, 'DD. MMM YYYY')
+      : '';
+});
+
+const isRange = computed(() => props.range && Array.isArray(inputValue.value));
 
 const mergedInputStyles = computed(() =>
   deepMerge(defaultInputStyles(props.dark), props.inputStyles),
@@ -98,8 +120,17 @@ function setOpen() {
   open.value = nextOpen;
 }
 
-function setValue(value: '' | DateString) {
-  inputValue.value = value;
+async function setValue(value: '' | DateString) {
+  isRange.value
+    ? inputValue.value[0] && !inputValue.value[1]
+      ? (inputValue.value = [inputValue.value[0], value].sort())
+      : (inputValue.value = [value, ''])
+    : (inputValue.value = value);
+
+  await nextTick();
+
+  if (isRange.value && !inputValue.value[1]) return;
+
   setOpen();
 }
 
@@ -108,7 +139,7 @@ function click() {
 }
 
 function clear() {
-  inputValue.value = '';
+  isRange.value ? (inputValue.value = ['', '']) : (inputValue.value = '');
 }
 
 watch(
@@ -165,7 +196,7 @@ watch(
         </slot>
       </div>
       <input
-        :value="inputValue ? formatDate(inputValue, 'DD. MMM YYYY') : ''"
+        :value="inputDisplay"
         class="sib-datepicker__input"
         :placeholder="props.placeholder"
         tabindex="-1"
@@ -214,6 +245,7 @@ watch(
     >
       <VueCalendar
         :value="inputValue"
+        :range="isRange"
         :start-week-on-monday="props.startWeekOnMonday"
         :min="props.min ? formatDate(props.min, 'YYYY-MM-DD') : undefined"
         :max="props.max ? formatDate(props.max, 'YYYY-MM-DD') : undefined"

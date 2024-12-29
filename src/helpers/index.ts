@@ -162,7 +162,7 @@ export const defaultCalendarStyles: CalendarStylesGenerator = (dark) => ({
       opacity: '0.5',
     },
     current: {
-      backgroundColor: dark ? colors.darkGray : colors.lightGray,
+      border: `1px solid ${colors.selected}`,
     },
     restricted: {
       color: dark ? colors.middleGray1 : colors.lightDark,
@@ -186,6 +186,10 @@ export const extractDateComponent: ExtractDateComponent = function (
 
 export const formatDate: FormatDate = function (date, format, monthAdjustment) {
   let dateValue = dayjs(date);
+
+  if (!dateValue.isValid()) {
+    return '';
+  }
 
   switch (monthAdjustment) {
     case 'subtract':
