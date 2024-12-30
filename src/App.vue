@@ -3,7 +3,7 @@ import { CalendarStylesProp, InputStylesProp } from '@/types/index';
 import VueDatePicker from '@/components/VueDatePicker.vue';
 import { ref } from 'vue';
 
-const date = ref(['2024-12-15']);
+const date = ref(['2026-09-05']);
 const locale = ref<'en' | 'sr'>('en');
 const dark = ref(false);
 const inputStyles = ref<InputStylesProp>({
@@ -52,7 +52,7 @@ function change() {
     range
     :locale="locale"
     :start-week-on-monday="locale === 'sr'"
-    :min="new Date('2024-11-05')"
+    :min="'2024-09-15'"
     :max="null"
     :dark="dark"
     :input-styles="inputStyles"

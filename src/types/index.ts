@@ -78,7 +78,10 @@ export type CalendarStylesProp = {
     backgroundColor?: string;
     boxShadow?: string;
   };
-  navButton?: {
+  header?: {
+    marginBottom?: `${number}${Unit}`;
+  };
+  headerButton?: {
     padding?: `${number}${Unit}`;
     color?: string;
     border?: string;
@@ -90,7 +93,7 @@ export type CalendarStylesProp = {
       opacity?: `${number}`;
     };
   };
-  navDateItem?: {
+  headerDateItem?: {
     fontSize?: `${number}${Unit}`;
     fontWeight?: `${number}`;
     lineHeight?: `${number}${Unit}`;
@@ -103,7 +106,6 @@ export type CalendarStylesProp = {
   table?: {
     fontSize?: `${number}${Unit}`;
     gap?: `${number}${Unit}`;
-    marginTop?: `${number}${Unit}`;
   };
   tableHead?: {
     fontWeight?: `${number}`;
@@ -171,7 +173,8 @@ export type ExtractDateComponent = <T extends 'year' | 'month'>(
 export type FormatDate = <T extends string>(
   date: string | number | Date | dayjs.Dayjs,
   format: T,
-  monthAdjustment?: 'subtract' | 'add',
+  adjustment?: 'subtract' | 'add',
+  timeUnit?: 'month' | 'year',
 ) => T extends 'YYYY-MM-DD'
   ? DateString
   : T extends 'YYYY-MM'

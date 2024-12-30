@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import {
   CalendarStylesProp,
+  CalendarValue,
   DateString,
   DateValue,
   DayjsLocale,
   InputStylesProp,
   Size,
+  Year,
 } from '@/types/index';
 import { computed, nextTick, ref, watch } from 'vue';
 import {
@@ -22,6 +24,8 @@ import { useClickOutside } from '@/composables/clickOutside';
 type VueDatePickerProps = {
   modelValue: DateValue | DateValue[];
   range?: boolean;
+  monthPicker?: boolean;
+  yearPicker?: boolean;
   size?: Size;
   name?: string;
   placeholder?: string;
@@ -39,6 +43,8 @@ type VueDatePickerProps = {
 
 const props = withDefaults(defineProps<VueDatePickerProps>(), {
   range: false,
+  monthPicker: false,
+  yearPicker: false,
   size: 'medium',
   name: 'datepicker-input',
   placeholder: undefined,
@@ -67,11 +73,14 @@ const inputValue = computed({
     return props.range
       ? Array.isArray(props.modelValue)
         ? props.modelValue.map((date) =>
-            date ? formatDate(date, 'YYYY-MM-DD') : '',
+            date ? formatDate(date, getInputValueFormat()) : '',
           )
         : ['', '']
       : props.modelValue
-        ? formatDate(props.modelValue as string | number | Date, 'YYYY-MM-DD')
+        ? formatDate(
+            props.modelValue as string | number | Date,
+            getInputValueFormat(),
+          )
         : '';
   },
   set: (value) => emit('update:modelValue', value),
@@ -79,9 +88,9 @@ const inputValue = computed({
 
 const inputDisplay = computed(() => {
   return isRange.value && inputValue.value[0]
-    ? `${formatDate(inputValue.value[0], 'DD. MMM YYYY')} - ${inputValue.value[1] ? formatDate(inputValue.value[1], 'DD. MMM YYYY') : ''}`
+    ? `${formatDate(inputValue.value[0], getInputDisplayFormat())} - ${inputValue.value[1] ? formatDate(inputValue.value[1], getInputDisplayFormat()) : ''}`
     : !isRange.value && typeof inputValue.value === 'string'
-      ? formatDate(inputValue.value, 'DD. MMM YYYY')
+      ? formatDate(inputValue.value, getInputDisplayFormat())
       : '';
 });
 
@@ -110,6 +119,22 @@ useClickOutside(container, () => {
   open.value && (open.value = false);
 });
 
+function getInputValueFormat() {
+  return props.yearPicker
+    ? 'YYYY'
+    : props.monthPicker
+      ? 'YYYY-MM'
+      : 'YYYY-MM-DD';
+}
+
+function getInputDisplayFormat() {
+  return props.yearPicker
+    ? 'YYYY'
+    : props.monthPicker
+      ? 'MMM YYYY'
+      : 'DD. MMM YYYY';
+}
+
 function setOpen() {
   if (props.disabled) return;
 
@@ -120,7 +145,7 @@ function setOpen() {
   open.value = nextOpen;
 }
 
-async function setValue(value: '' | DateString) {
+async function setValue(value: '' | DateString | CalendarValue | Year) {
   isRange.value
     ? inputValue.value[0] && !inputValue.value[1]
       ? (inputValue.value = [inputValue.value[0], value].sort())
@@ -244,8 +269,11 @@ watch(
       @click.stop
     >
       <VueCalendar
+        :opened="open"
         :value="inputValue"
         :range="isRange"
+        :month-picker="props.monthPicker"
+        :year-picker="props.yearPicker"
         :start-week-on-monday="props.startWeekOnMonday"
         :min="props.min ? formatDate(props.min, 'YYYY-MM-DD') : undefined"
         :max="props.max ? formatDate(props.max, 'YYYY-MM-DD') : undefined"

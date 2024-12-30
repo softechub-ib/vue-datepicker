@@ -108,7 +108,10 @@ export const defaultCalendarStyles: CalendarStylesGenerator = (dark) => ({
     backgroundColor: dark ? colors.middleDark : colors.light,
     boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
   },
-  navButton: {
+  header: {
+    marginBottom: '12px',
+  },
+  headerButton: {
     padding: '4px',
     color: dark ? colors.light : colors.lightDark,
     border: 'none',
@@ -120,7 +123,7 @@ export const defaultCalendarStyles: CalendarStylesGenerator = (dark) => ({
       opacity: '0.5',
     },
   },
-  navDateItem: {
+  headerDateItem: {
     fontSize: '12px',
     fontWeight: '600',
     lineHeight: '16px',
@@ -133,7 +136,6 @@ export const defaultCalendarStyles: CalendarStylesGenerator = (dark) => ({
   table: {
     fontSize: '12px',
     gap: '4px',
-    marginTop: '12px',
   },
   tableHead: {
     fontWeight: '700',
@@ -184,19 +186,24 @@ export const extractDateComponent: ExtractDateComponent = function (
   ) as any;
 };
 
-export const formatDate: FormatDate = function (date, format, monthAdjustment) {
+export const formatDate: FormatDate = function (
+  date,
+  format,
+  adjustment,
+  timeUnit = 'month',
+) {
   let dateValue = dayjs(date);
 
   if (!dateValue.isValid()) {
     return '';
   }
 
-  switch (monthAdjustment) {
+  switch (adjustment) {
     case 'subtract':
-      dateValue = dateValue.subtract(1, 'month');
+      dateValue = dateValue.subtract(1, timeUnit);
       break;
     case 'add':
-      dateValue = dateValue.add(1, 'month');
+      dateValue = dateValue.add(1, timeUnit);
       break;
     default:
       break;
