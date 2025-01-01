@@ -8,9 +8,9 @@ import {
   Month,
   Show,
   Year,
-} from '@/types/index';
+} from '@/types';
 import { computed, nextTick, ref, watch } from 'vue';
-import { extractDateComponent, formatDate } from '@/helpers/index';
+import { extractDateComponent, formatDate } from '@/helpers';
 import dayjs from '@/dayjs-with-locales';
 
 type VueCalendarProps = {

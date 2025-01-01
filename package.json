@@ -1,8 +1,34 @@
 {
   "name": "@softechub-ib/vue-datepicker",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Datepicker component for Vue 3",
+  "author": "softechub-ib",
+  "private": false,
+  "license": "MIT",
   "type": "module",
+  "types": "index.d.ts",
+  "main": "dist/vue-datepicker.umd.cjs",
+  "module": "dist/vue-datepicker.js",
+  "browser": "dist/vue-datepicker.js",
+  "style": "dist/style.css",
+  "files": [
+    "dist/*",
+    "index.d.ts",
+    "LICENSE",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/vue-datepicker.js",
+      "require": "./dist/vue-datepicker.umd.cjs",
+      "types": "./index.d.ts"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css",
+      "default": "./dist/style.css"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
@@ -23,10 +49,37 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-vue": "^9.31.0",
+    "path": "^0.12.7",
     "prettier": "3.3.3",
     "sass-embedded": "^1.81.0",
     "typescript": "~5.6.2",
     "vite": "^5.4.10",
+    "vite-plugin-dts": "^4.4.0",
     "vue-tsc": "^2.1.8"
-  }
+  },
+  "peerDependencies": {
+    "vue": ">=3.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/softechub-ib/vue-datepicker.git"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "vue3",
+    "date",
+    "datepicker",
+    "vue-datepicker",
+    "vuejs-datepicker",
+    "vue3-datepicker",
+    "daterangepicker",
+    "datemonthpicker",
+    "dateyearpicker"
+  ],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }

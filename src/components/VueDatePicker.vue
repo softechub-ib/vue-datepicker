@@ -8,13 +8,13 @@ import {
   InputStylesProp,
   Size,
   Year,
-} from '@/types/index';
+} from '@/types';
 import { computed, nextTick, ref, watch } from 'vue';
 import {
   defaultCalendarStyles,
   defaultInputStyles,
   formatDate,
-} from '@/helpers/index';
+} from '@/helpers';
 import { flip, useFloating } from '@floating-ui/vue';
 import VueCalendar from './VueCalendar.vue';
 import dayjs from '@/dayjs-with-locales';

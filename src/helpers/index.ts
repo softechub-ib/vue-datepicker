@@ -3,7 +3,7 @@ import {
   ExtractDateComponent,
   FormatDate,
   InputStylesGenerator,
-} from '@/types/index';
+} from '@/types';
 import dayjs from '@/dayjs-with-locales';
 
 const colors = {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CalendarStylesProp, InputStylesProp } from '@/types/index';
+import { CalendarStylesProp, InputStylesProp } from '@/types';
 import VueDatePicker from '@/components/VueDatePicker.vue';
 import { ref } from 'vue';
 
