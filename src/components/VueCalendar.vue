@@ -391,7 +391,7 @@ watch(
         type="button"
         @click="setCalendarValue('subtract')"
       >
-        <slot name="leftNavButtonIcon">
+        <slot name="leftHeaderButtonIcon">
           <svg
             width="24"
             height="24"
@@ -444,7 +444,7 @@ watch(
         type="button"
         @click="setCalendarValue('add')"
       >
-        <slot name="rightNavButtonIcon">
+        <slot name="rightHeaderButtonIcon">
           <svg
             width="24"
             height="24"

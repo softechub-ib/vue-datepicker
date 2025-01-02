@@ -3,7 +3,7 @@ import { CalendarStylesProp, InputStylesProp } from '@/types';
 import VueDatePicker from '@/components/VueDatePicker.vue';
 import { ref } from 'vue';
 
-const date = ref(['2026-09-05']);
+const date = ref();
 const locale = ref<'en' | 'sr'>('en');
 const dark = ref(false);
 const inputStyles = ref<InputStylesProp>({
@@ -29,11 +29,6 @@ const calendarStyles = ref<CalendarStylesProp>({
     },
     monthsYears: {
       // marginBottom: '48px',
-    },
-  },
-  tableBodyItem: {
-    current: {
-      // borderWidth: '6px',
     },
   },
 });

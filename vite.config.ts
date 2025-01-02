@@ -4,7 +4,13 @@ import dts from 'vite-plugin-dts';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-  plugins: [vue(), dts()],
+  plugins: [
+    vue(),
+    dts({
+      tsconfigPath: './tsconfig.app.json',
+      exclude: ['./src/main.ts', './src/App.vue'],
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),

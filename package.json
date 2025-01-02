@@ -1,19 +1,17 @@
 {
   "name": "@softechub-ib/vue-datepicker",
-  "version": "1.0.0",
+  "version": "1.0.10",
   "description": "Datepicker component for Vue 3",
   "author": "softechub-ib",
   "private": false,
   "license": "MIT",
   "type": "module",
-  "types": "index.d.ts",
   "main": "dist/vue-datepicker.umd.cjs",
   "module": "dist/vue-datepicker.js",
   "browser": "dist/vue-datepicker.js",
   "style": "dist/style.css",
   "files": [
     "dist/*",
-    "index.d.ts",
     "LICENSE",
     "README.md"
   ],
@@ -21,12 +19,11 @@
     ".": {
       "import": "./dist/vue-datepicker.js",
       "require": "./dist/vue-datepicker.umd.cjs",
-      "types": "./index.d.ts"
+      "types": "./dist/index.d.ts"
     },
     "./dist/style.css": {
       "import": "./dist/style.css",
-      "require": "./dist/style.css",
-      "default": "./dist/style.css"
+      "require": "./dist/style.css"
     }
   },
   "scripts": {

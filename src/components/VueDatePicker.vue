@@ -232,7 +232,8 @@ watch(
         v-if="!props.disabled && props.clearable"
         class="sib-datepicker__selection__clear-icon"
         :class="{
-          'sib-datepicker__selection__clear-icon--invisible': !inputValue,
+          'sib-datepicker__selection__clear-icon--invisible':
+            !inputValue || !inputValue[0],
         }"
         aria-label="Clear value"
         type="button"
@@ -280,11 +281,11 @@ watch(
         :styles="mergedCalendarStyles"
         @change="setValue"
       >
-        <template #leftNavButtonIcon>
-          <slot name="leftNavButtonIcon" />
+        <template #leftHeaderButtonIcon>
+          <slot name="leftHeaderButtonIcon" />
         </template>
-        <template #rightNavButtonIcon>
-          <slot name="rightNavButtonIcon" />
+        <template #rightHeaderButtonIcon>
+          <slot name="rightHeaderButtonIcon" />
         </template>
       </VueCalendar>
     </div>
