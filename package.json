@@ -1,6 +1,6 @@
 {
   "name": "@softechub-ib/vue-datepicker",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Datepicker component for Vue 3",
   "author": "softechub-ib",
   "private": false,

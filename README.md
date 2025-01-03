@@ -13,6 +13,10 @@
 - Accessibility
 - Type definitions
 
+### Playground
+
+[Datepicker Playground](https://stackblitz.com/edit/softechub-ib-vue-datepicker?file=src%2Fcomponents%2FSingleDatePicker.vue)
+
 ## Install
 
 ```shell
@@ -252,10 +256,6 @@ type CalendarStylesProp = {
 - `clearIcon` (Input clear icon)
 - `leftHeaderButtonIcon` (Calendar left header button icon)
 - `rightHeaderButtonIcon` (Calendar right header button icon)
-
-## Examples with playground
-
-[StackBlitz Datepicker Playground](https://stackblitz.com/edit/softechub-ib-vue-datepicker?file=src%2Fcomponents%2FSingleDatePicker.vue)
 
 ## License
 
