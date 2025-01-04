@@ -5,6 +5,7 @@ import {
   CalendarStylesProp,
   CalendarValue,
   DateString,
+  DeepRequired,
   Month,
   Show,
   Year,
@@ -22,7 +23,7 @@ type VueCalendarProps = {
   startWeekOnMonday: boolean;
   min: DateString | undefined;
   max: DateString | undefined;
-  styles: CalendarStylesProp;
+  styles: DeepRequired<CalendarStylesProp>;
 };
 
 const props = defineProps<VueCalendarProps>();

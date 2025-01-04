@@ -1,5 +1,9 @@
 import dayjs from '@/dayjs-with-locales';
 
+export type DeepRequired<T> = T extends object
+  ? { [K in keyof T]-?: DeepRequired<T[K]> }
+  : T;
+
 type Unit = '%' | 'px' | 'em' | 'rem';
 
 export type InputStylesProp = {
@@ -66,7 +70,9 @@ export type InputStylesProp = {
   };
 };
 
-export type InputStylesGenerator = (dark: boolean) => InputStylesProp;
+export type InputStylesGenerator = (
+  dark: boolean,
+) => DeepRequired<InputStylesProp>;
 
 export type CalendarStylesProp = {
   container?: {
@@ -147,7 +153,9 @@ export type CalendarStylesProp = {
   };
 };
 
-export type CalendarStylesGenerator = (dark: boolean) => CalendarStylesProp;
+export type CalendarStylesGenerator = (
+  dark: boolean,
+) => DeepRequired<CalendarStylesProp>;
 
 export type DateValue = string | number | Date | null | undefined;
 

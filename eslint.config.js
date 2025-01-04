@@ -22,6 +22,10 @@ export default [
           allowSeparatedGroups: false,
         },
       ],
+      'padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: '*', next: 'return' },
+      ],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-expressions': 'off',
       'prettier/prettier': [
