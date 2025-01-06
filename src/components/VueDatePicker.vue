@@ -87,6 +87,10 @@ const inputValue = computed({
 });
 
 const inputDisplay = computed(() => {
+  if (props.locale) {
+    // silent, just to trigger this computed update
+  }
+
   return isRange.value && inputValue.value[0]
     ? `${formatDate(inputValue.value[0], getInputDisplayFormat())} - ${inputValue.value[1] ? formatDate(inputValue.value[1], getInputDisplayFormat()) : ''}`
     : !isRange.value && typeof inputValue.value === 'string'
