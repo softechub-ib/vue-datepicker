@@ -11,6 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+src/App.vue
+src/main.ts
+src/style.css
+src/vite-env.d.ts
 
 # Editor directories and files
 .vscode/*
