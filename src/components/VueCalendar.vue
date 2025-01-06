@@ -522,6 +522,7 @@ watch(
           >
             <button
               :disabled="isDayRestricted(item.date)"
+              :data-test-id="item.date"
               type="button"
               @click="clickDay(item.date)"
             >
@@ -572,6 +573,7 @@ watch(
           >
             <button
               :disabled="isMonthRestricted(`${year}-${item.value}`)"
+              :data-test-id="`${year}-${item.value}`"
               type="button"
               @click="clickMonth(item.value)"
             >
@@ -620,6 +622,7 @@ watch(
           >
             <button
               :disabled="isYearRestricted(item)"
+              :data-test-id="item"
               type="button"
               @click="clickYear(item)"
             >
