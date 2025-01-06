@@ -19,7 +19,12 @@ export default defineConfig({
     vue(),
     dts({
       tsconfigPath: './tsconfig.app.json',
-      exclude: ['./src/main.ts', './src/App.vue'],
+      exclude: [
+        './src/tests',
+        './src/App.vue',
+        './src/main.ts',
+        './src/style.css',
+      ],
     }),
   ],
   test: vitestConfig.test,

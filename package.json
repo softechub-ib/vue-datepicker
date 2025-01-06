@@ -1,6 +1,6 @@
 {
   "name": "@softechub-ib/vue-datepicker",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Datepicker component for Vue 3",
   "author": "softechub-ib",
   "private": false,
@@ -36,8 +36,7 @@
   "dependencies": {
     "@floating-ui/vue": "^1.1.5",
     "dayjs": "^1.11.13",
-    "lodash.merge": "^4.6.2",
-    "vue": "^3.5.12"
+    "lodash.merge": "^4.6.2"
   },
   "devDependencies": {
     "@types/lodash.merge": "^4.6.9",
@@ -58,6 +57,7 @@
     "vite": "^5.4.10",
     "vite-plugin-dts": "^4.4.0",
     "vitest": "^2.1.8",
+    "vue": "^3.5.12",
     "vue-tsc": "^2.1.8"
   },
   "peerDependencies": {
