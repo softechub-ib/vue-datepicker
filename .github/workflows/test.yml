@@ -1,0 +1,48 @@
+name: Run Tests and Check Coverage
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      # Cache yarn dependencies (optional but speeds up the process)
+      - name: Cache yarn dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      # Install dependencies with yarn
+      - name: Install dependencies with yarn
+        run: yarn install
+
+      # Run tests
+      - name: Run tests
+        run: yarn test
+
+      # Run coverage
+      - name: Run coverage
+        run: yarn coverage
+
+      # Upload coverage results (using Coveralls or another service)
+      - name: Upload coverage to coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
