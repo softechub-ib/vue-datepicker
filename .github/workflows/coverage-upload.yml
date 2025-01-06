@@ -1,12 +1,12 @@
-name: Run Tests and Check Coverage
+name: Upload Test Coverage to Coveralls
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
 jobs:
-  test:
+  upload-coverage:
     runs-on: ubuntu-latest
 
     steps:
@@ -45,4 +45,5 @@ jobs:
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coveralls-token: ${{ secrets.COVERALLS_TOKEN }}
+        if: success()
