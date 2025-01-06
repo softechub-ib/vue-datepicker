@@ -1,5 +1,7 @@
 ## @softechub-ib/vue-datepicker
 
+[![License](https://img.shields.io/npm/l/@softechub-ib/vue-datepicker)](https://github.com/softechub-ib/vue-datepicker/blob/main/LICENSE) [![npm](https://img.shields.io/npm/v/@softechub-ib/vue-datepicker)](https://www.npmjs.com/package/@softechub-ib/vue-datepicker) ![Downloads](https://img.shields.io/npm/dm/@softechub-ib/vue-datepicker) [![Coverage Status](https://coveralls.io/repos/github/softechub-ib/vue-datepicker/badge.svg?branch=main)](https://coveralls.io/github/softechub-ib/vue-datepicker?branch=main)
+
 ### Datepicker solution for Vue 3 that offers:
 
 - Single date picker
