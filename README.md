@@ -1,6 +1,6 @@
 ## @softechub-ib/vue-datepicker
 
-[![License](https://img.shields.io/npm/l/@softechub-ib/vue-datepicker)](https://github.com/softechub-ib/vue-datepicker/blob/main/LICENSE) [![npm](https://img.shields.io/npm/v/@softechub-ib/vue-datepicker)](https://www.npmjs.com/package/@softechub-ib/vue-datepicker) ![Downloads](https://img.shields.io/npm/dm/@softechub-ib/vue-datepicker) [![Coverage Status](https://coveralls.io/repos/github/softechub-ib/vue-datepicker/badge.svg?branch=main)](https://coveralls.io/github/softechub-ib/vue-datepicker?branch=main)
+[![License](https://img.shields.io/npm/l/@softechub-ib/vue-datepicker)](https://github.com/softechub-ib/vue-datepicker/blob/main/LICENSE) [![npm](https://img.shields.io/npm/v/@softechub-ib/vue-datepicker)](https://www.npmjs.com/package/@softechub-ib/vue-datepicker) ![Downloads](https://img.shields.io/npm/dm/@softechub-ib/vue-datepicker) [![Open issues](https://img.shields.io/github/issues-raw/softechub-ib/vue-datepicker)](https://github.com/softechub-ib/vue-datepicker/issues) ![CI](https://img.shields.io/github/actions/workflow/status/softechub-ib/vue-datepicker/ci-coverage-upload.yml?branch=main&label=CI) [![Coverage Status](https://coveralls.io/repos/github/softechub-ib/vue-datepicker/badge.svg?branch=main)](https://coveralls.io/github/softechub-ib/vue-datepicker?branch=main)
 
 ### Datepicker solution for Vue 3 that offers:
 
@@ -65,6 +65,18 @@ const date = ref();
 <template>
   <VueDatePicker v-model="date" />
 </template>
+```
+
+**Types**
+
+```ts
+import type {
+  CalendarStylesProp, // calendar-styles
+  DateValue, // min, max, model-value (DateValue | DateValue[])
+  DayjsLocale, // locale
+  InputStylesProp, // input-styles
+  Size, // size
+} from "@softechub-ib/vue-datepicker";
 ```
 
 ## Props
