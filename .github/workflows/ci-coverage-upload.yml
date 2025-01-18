@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  upload-coverage:
+  ci-upload-coverage:
     runs-on: ubuntu-latest
 
     steps:
