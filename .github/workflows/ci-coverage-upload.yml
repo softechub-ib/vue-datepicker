@@ -1,4 +1,4 @@
-name: Upload Test Coverage to Coveralls
+name: CI / Upload Test Coverage to Coveralls
 
 on:
   push:
