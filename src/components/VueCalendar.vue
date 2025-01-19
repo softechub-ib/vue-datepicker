@@ -21,6 +21,7 @@ type VueCalendarProps = {
   monthPicker: boolean;
   yearPicker: boolean;
   startWeekOnMonday: boolean;
+  hideTodayMark: boolean;
   min: DateString | undefined;
   max: DateString | undefined;
   styles: DeepRequired<CalendarStylesProp>;
@@ -506,7 +507,7 @@ watch(
             :class="{
               'sib-calendar__table__body__item--offset': item.offset,
               'sib-calendar__table__body__item--current':
-                item.date === currentDate,
+                !props.hideTodayMark && item.date === currentDate,
               'sib-calendar__table__body__item--restricted': isDayRestricted(
                 item.date,
               ),
@@ -555,6 +556,7 @@ watch(
             class="sib-calendar__table__body__item sib-calendar__table__body__item--months"
             :class="{
               'sib-calendar__table__body__item--current':
+                !props.hideTodayMark &&
                 props.monthPicker &&
                 `${year}-${item.value}` === formatDate(currentDate, 'YYYY-MM'),
               'sib-calendar__table__body__item--restricted': isMonthRestricted(
@@ -610,7 +612,9 @@ watch(
             class="sib-calendar__table__body__item sib-calendar__table__body__item--years"
             :class="{
               'sib-calendar__table__body__item--current':
-                props.yearPicker && item === formatDate(currentDate, 'YYYY'),
+                !props.hideTodayMark &&
+                props.yearPicker &&
+                item === formatDate(currentDate, 'YYYY'),
               'sib-calendar__table__body__item--restricted':
                 isYearRestricted(item),
               'sib-calendar__table__body__item--selected': isYearSelected(item),

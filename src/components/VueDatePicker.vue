@@ -31,6 +31,7 @@ type VueDatePickerProps = {
   placeholder?: string;
   locale?: DayjsLocale;
   startWeekOnMonday?: boolean;
+  hideTodayMark?: boolean;
   clearable?: boolean;
   disabled?: boolean;
   error?: boolean;
@@ -50,6 +51,7 @@ const props = withDefaults(defineProps<VueDatePickerProps>(), {
   placeholder: undefined,
   locale: 'en',
   startWeekOnMonday: false,
+  hideTodayMark: false,
   clearable: true,
   disabled: false,
   error: false,
@@ -280,6 +282,7 @@ watch(
         :month-picker="props.monthPicker"
         :year-picker="props.yearPicker"
         :start-week-on-monday="props.startWeekOnMonday"
+        :hide-today-mark="props.hideTodayMark"
         :min="props.min ? formatDate(props.min, 'YYYY-MM-DD') : undefined"
         :max="props.max ? formatDate(props.max, 'YYYY-MM-DD') : undefined"
         :styles="mergedCalendarStyles"
