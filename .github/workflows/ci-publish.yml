@@ -21,6 +21,10 @@ jobs:
           node-version: "18"
           cache: "yarn"
 
+      # Authenticate with npm
+      - name: Authenticate with npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
       # Install dependencies
       - name: Install dependencies
         run: yarn install
