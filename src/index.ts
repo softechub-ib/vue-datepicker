@@ -19,6 +19,7 @@ type VueDatePickerProps = {
   placeholder?: string;
   locale?: DayjsLocale;
   startWeekOnMonday?: boolean;
+  hideTodayMark?: boolean;
   clearable?: boolean;
   disabled?: boolean;
   error?: boolean;
@@ -69,6 +70,7 @@ declare const __VLS_component: import('vue').DefineComponent<
     monthPicker: boolean;
     yearPicker: boolean;
     startWeekOnMonday: boolean;
+    hideTodayMark: boolean;
     min: string | number | Date | null;
     max: string | number | Date | null;
     disabled: boolean;

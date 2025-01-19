@@ -92,6 +92,7 @@ import type {
 | placeholder          | no       | `string`                                                                                                 | `undefined`             |
 | locale               | no       | [DayjsLocale](https://cdn.jsdelivr.net/npm/dayjs@1/locale.json) (union type of key values from the link) | `"en"`                  |
 | start-week-on-monday | no       | `boolean`                                                                                                | `false`                 |
+| hide-today-mark      | no       | `boolean`                                                                                                | `false`                 |
 | clearable            | no       | `boolean`                                                                                                | `true`                  |
 | disabled             | no       | `boolean`                                                                                                | `false`                 |
 | error                | no       | `boolean`                                                                                                | `false`                 |
@@ -270,6 +271,14 @@ type CalendarStylesProp = {
 - `clearIcon` (Input clear icon)
 - `leftHeaderButtonIcon` (Calendar left header button icon)
 - `rightHeaderButtonIcon` (Calendar right header button icon)
+
+## Supporting the project
+
+Maintaining an open-source project is a time-consuming job. Your support is very appreciated ❤️
+
+Please ⭐️ this repository if you like the component.
+
+You can also make a financial contribution via sponsoring this project or one time donation → [become a sponsor](https://github.com/sponsors/softechub-ib).
 
 ## License
 
